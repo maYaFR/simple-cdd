@@ -1,0 +1,318 @@
+# Changer la priorite des questions de configurations
+# Ignorer les questions de priorites inferieur a :
+# LOW
+
+
+d-i 		debconf/priority 			string 	critical
+
+                                                                         
+# Select a language / Choix de la langue
+# Language :
+# French - Francais
+
+
+debconf 	debconf/language 			string 	fr
+
+d-i     	debconf/language 			string 	fr
+
+d-i     	debian-installer/language 		boolean true
+
+
+# Choix de votre situation gÃ©ographique
+# Pays (territoire ou region) :
+
+
+d-i     	debian-installer/country 		string 	FR
+
+d-i		debian/installer/language		string	fr
+
+
+# Choix des parametres regionaux ("locales")
+# Pays qui servira de base aux parametres regionaux par defaut :
+# France - fr_FR.UTF-8
+
+
+d-i     	debian-installer/locale 		string 	fr_FR.UTF-8
+
+
+# Choix des parametres regionaux ("locales") - De preference fr_FR.UTF-8
+
+
+d-i     	debian-installer/supported-locales	string 	fr_FR.UTF-8
+
+d-i     	debian-installer/locale                 string 	fr_FR.UTF-8
+
+# Configurer le clavier
+# Disposition de clavier a utiliser
+
+
+# Locales
+d-i 		debian-installer/fallbacklocale 	select 	fr_FR.UTF-8
+d-i 		debian-installer/locale 		select	fr_FR.UTF-8
+
+# Keyboard
+d-i 		keyboard-configuration/xkb-keymap 	select 	fr-latin9
+d-i 		keyboard-configuration/toggle		select	No toggling
+
+
+# Configurer le reseau / Nom de la machine : 
+
+
+d-i     	netcfg/get_hostname 			string 	A56
+
+
+# Configurer le reseau
+# Domaine : a56.fr
+
+
+d-i		netcfg/get_domain			string 	A56.fr
+
+
+
+# Choisir un mirroir de l'archive Debian
+# Pays du mirroir de l'archive Debian : 
+#Â France
+
+
+d-i     	mirror/country				string 	manual
+
+
+
+# Choisir un mirroir de l'archive Debian
+#Â Mirroir de l'archive Debian
+# ftp.fr.debian.org
+
+
+d-i     	mirror/http/hostname			string 	ftp.fr.debian.org
+
+d-i     	mirror/http/directory			string 	/debian/
+
+
+
+# Root password, either in clear text
+
+d-i   		passwd/root-password			password
+
+d-i    		passwd/root-password-again              password
+
+
+
+
+# Creer les utilisateur et choisir les mots de passe
+# Nom complet du nouvel utilisateur :
+# A56-INFORMATIQUE
+
+d-i		passwd/user-fullname			string	A56-INFORMATIQUE
+
+# Alternatively, to skip creation of a normal user account.
+
+d-i  	passwd/root-login                       boolean false
+d-i    	passwd/make-user 			boolean	false
+
+
+#Â Creer les utilisateurs et choisir les mots de passe
+# Identifiant pour le compte utilisateur :
+# debian | ex : a56@debian:$.
+
+
+
+d-i     	passwd/username				string 	a56
+
+
+
+# Creer les utilisateurs et choisir les mots de passe
+#Â Confirmation du mot de passe : 
+
+
+
+d-i     	passwd/user-password-crypted		password	$1$NcKTIx1m$0mBu3k6WLD4t8zK79Nd6b/
+
+
+
+# Partitionner les disques
+# Disque a partitionner :
+# SCSI1 (0,0,0) (sda) - 40.0 GB ATA ST340014A
+
+
+d-i     	partman-auto/disk			string 	/dev/sda
+
+
+
+# Partitionner les disques
+# Methode partitionnement :
+# Assiste - utiliser tout un disque avec LVM
+
+d-i     	partman-auto/method                     string 	lvm
+
+d-i     	partman-auto/init_automaticaly_Partition	select	Partionnement assiste - utiliser tout un disque avec LVM
+
+
+# Partitionner les disques
+# Faut-il supprimer les donnees des volumes logiques eistants ?
+# Oui
+
+
+d-i     	partman-lvm/device_remove_lvm		boolean 	true
+
+d-i     	partman-md/device_remove_md		boolean 	true
+
+
+
+# Partitionner les disques
+# Ecrire les modifications sur les disques et configurer LVM ?
+# Oui
+
+
+d-i    		partman-lvm/confirm			boolean		true
+
+d-i     	partman-lvm/confirm_nooverwrite		boolean		true
+
+
+
+# Partitionner les disques
+# Nom du groupe de volumes pour le nouveau systeme :
+# debian
+
+
+
+d-i     	partman/confirm_write_new_label		boolean 	true
+
+d-i     	partman_auto_lvm/new_vg_name		string		debian
+
+
+
+# Partitionner les disques
+# Schema de partitionnement :
+# Partitions /home, /usr, /var et /tmp separees
+
+
+d-i     	partman-auto/choose_recipe		select 		multi
+
+
+
+# Partitionner les disques
+# Terminer le partitionnement et appliquer l es changements
+
+
+d-i     	partman/choose_partition		select 		Finish partitioning and write changes to disk
+
+d-i    		partman/choose_partition                select 		Terminer le partitionnement et appliquer les changements
+
+
+# Partitionner les disques
+# Faut-il appliquer les changements sur les disques ?
+# Oui
+
+
+d-i     	partman/confirm				boolean 	true
+
+d-i    	 	partman/confirm_nooverwrite		boolean		true
+
+
+# Installer le systeme de base
+# Noyau a installer :
+# linux-image-686-pae
+
+# d-i     	base-installer/kernel/image             string 		linux-image-686-pae
+
+# Configurer l'outil de gestion des paquets
+# Services a utiliser :
+#	mises a jour de securite (security.debian.org)
+#	mises a jour de la publication
+
+apt-setup-udev apt-setup/services-select               multiselect security, updates, 
+
+
+# Configuration de popularity-contest
+#Â Souhaitez-vous participer a l'etude statistique [...] : NON
+
+popularity-contest popularity-contest/participate	boolean 	false
+
+
+tasksel tasksel/first                                   multiselect standard, web-server, lxde-desktop
+
+#tasksel tasksel/desktop                                  	select gnome
+
+					
+d-i     pkgsel/upgrade                                     select full-upgrade
+
+#d-i     pkgsel/include                                  string apache2.2-bin apache2 apache2-mpm-worker libapache2-mod-ldap-userdir imagemagick libmagickcore5-extra unixodbc mysql-common postgresql-9.1 postgresql-common postgresql-client-9.1 postgresql-client-common postgresql-server-dev-9.1 libxml2-utils xsltproc libjson0-dev dblatex texlive docbook-xsl trac trac-git cups cups-pdf sudo ack-grep hwinfo ncurses-term ncdu bzip2 p7zip-full unzip make build-essential devscripts fakeroot flex bison libreadline-dev autoconf automake libtool lsb-release mlocate tmux openssh-server git subversion subversion-tools curl etckeeper elinks zsh
+#d-i     pkgsel/include                                     string apache2.2-bin apache2 apache2-mpm-worker libapache2-mod-ldap-userdir imagemagick libmagickcore5-extra unixodbc mysql-common cups cups-pdf libtool lsb-release mlocate tmux openssh-server git subversion subversion-tools curl etckeeper zsh
+#d-i     pkgsel/include                                     string openssh-server git sudo ack-grep hwinfo ncurses-term ncdu bzip2 p7zip-full unzip make build-essential fakeroot flex bison libreadline-dev autoconf automake libtool lsb-release mlocate tmux subversion apache2 subversion-tools curl libapache2-mod-ldap-usersdir imagemagick libmagickcore5-extra #unixodbc mysql-common libxml2-utils xsltproc libjson0-dev dblatex texlive docbook-xsl trac trac-git cups cups-pdf
+
+
+# La ligne ci-dessous est la derniere version
+# Recuperation des fichiers depuis le depot git, recopie au bon endroit, puis enfin, execution du script
+
+# d-i     preseed/late_command                               string in-target git clone --progress --verbose http://github.com/fgarel/myDebianInstall01.git /root/myDebianInstall01; cp /target/root/myDebianInstall01/usr/sbin/fggitfetch-preseed.sh /target/usr/sbin; chroot /target fggitfetch-preseed.sh
+
+
+
+# Installer le programme de demarrage GRUB sur un disque dur
+# Installer le programme de demarrage GRUB sur le secteur d'amorcage ?
+#Â Oui
+
+d-i     	grub-installer/with_other_os		boolean		true
+
+
+# Terminer l'installation
+# L'horloge systeme est-elle a l'heure universelle (UTC) ?
+# Oui
+
+d-i    		clock-setup/utc				boolean		true
+
+d-i     	time/zone				string		Europe/Paris
+
+d-i     	clock-setup/ntp				boolean		true
+
+
+# NTP server to use. The default is almost always fine here.
+
+d-i     	clock-setup/ntp-server			string 		0.fr.pool.ntp.org
+
+d-i     	clock-setup/ntp-server                  string 		1.fr.pool.ntp.org
+
+d-i     clock-setup/ntp-server                          string 		2.fr.pool.ntp.org
+
+d-i     clock-setup/ntp-server                          string 		3.fr.pool.ntp.org
+
+
+
+# Terminer l'installation
+# Installation termine
+# Continuer
+
+
+d-i     	finish-install/reboot_in_progress	note
+
+# Premier demarrage apres installation
+
+# Il faudrait que je lunch un programme pour mettre en place
+# Le naviguateur avec son Hello World et le service web
+# voir tuto : 
+
+# Trouver la ligne pour : lancer le naviguateur avec localhost pour appeler le service web
+# iceweasel http://localhost/     -> Sa devrait marcher avec cette commande
+
+# Pour l'auto loggin au demarrage de Debian, modifier le fichier dans : /etc/gdm3/daemon.conf
+# Il y a deux ligne a décommenter mais ATTENTION, une erreur de frappe est irréversible, il ne reconnaitra plus le ID.
+# AutomaticLoginEnable = true
+# AutomaticLogin = a56
+
+# CECI EST MON FICHIER TYPE ET PERSONNALISE, VEUILLEZ VOUS REDIRIGER SUR LE PRESEED(2) POUR MODIFIER A VOTRE GUISE !
+# DES ERREURS PEUVENTS SUBSISTER ET LES PARAMETRES SONT FORCEMENT A REMPLACER SI VOUS VOULEZ LE PERSONNALISER.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
