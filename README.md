@@ -1,0 +1,2 @@
+# simple-cdd
+Fichier preseed
