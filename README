@@ -4,8 +4,6 @@
 
 # Information
 
-Ce GitHub répertorie les différents fichiers que j'ai utiliser pour personnalisé mon installation Debian.
-J'ai travailler sur les outils suivants : VMware 11.0 | Debian 7.8 Wheezy | Paquets : simple-cdd / git / qemu
+Ce GitHub répertorie les différents fichiers que j'ai utiliser pour personnalisé mon installation Debian. J'ai travailler sur les outils suivants : VMware 11.0 | Debian 7.8 Wheezy | Paquets : simple-cdd / git / qemu
 
-Le fichier default.preseed répond aux questions que Debian vous posent pendant sont installation BASIC.
-Le fichier default.conf répond à l'outil "simple-cdd" que vous utiliser pendant la construction de votre propre image.
+Le fichier default.preseed répond aux questions que Debian vous posent pendant sont installation BASIC. Le fichier default.conf répond à l'outil "simple-cdd" que vous utiliser pendant la construction de votre propre image.
